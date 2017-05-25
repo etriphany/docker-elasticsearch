@@ -15,4 +15,4 @@ This image is based on [java:openjdk-8-jre-alpine](https://github.com/docker-lib
 ----------------------------------------------------------------------------|-------------------------------------
 Based on **CentOS 7**                                                       | Based on **Alpine 3.5**
 Image size around **510 MB**                                                | Image size around **150 MB**
-Besides interal configurations, can handle env parameters from _docker run_ | Deals only with intenal configurations
+Besides internal configurations files, can handle Elasticsearch parameters passed to _docker run_ | Deals only with internal configurations files
