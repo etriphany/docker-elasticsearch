@@ -11,8 +11,8 @@ RUN         apk add ${OS_PACKAGES} --update --no-cache && \
             rm -rf /var/cache/apk
 
 # Group & user
-RUN         addgroup -S elasticsearch && \
-            adduser -S -G elasticsearch -h ${ES_HOME} elasticsearch
+RUN         addgroup -S -g 1000 elasticsearch && \
+            adduser -S -u 1000 -G elasticsearch -h ${ES_HOME} elasticsearch
 
 # Download & install
 WORKDIR     /usr/share/elasticsearch/
@@ -26,9 +26,14 @@ RUN         curl -Lo elasticsearch-${ES_VERSION}.tar.gz https://artifacts.elasti
 # Configure
 COPY        config ./config
 
+COPY        bin ./bin
+
+RUN         chown -R elasticsearch:elasticsearch config/ bin/
+
 EXPOSE      9200 9300
+
 
 # Run
 USER        elasticsearch
 
-CMD         ["/bin/bash", "bin/elasticsearch"]
+CMD         ["/bin/bash", "bin/docker-elasticsearch"]

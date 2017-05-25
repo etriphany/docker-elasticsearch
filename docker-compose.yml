@@ -12,6 +12,8 @@ services:
      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
      - ./volume/es_node_1:/usr/share/elasticsearch/data
+    networks:
+     - es_network 
 
   es_node_2:
     image: etriphany:elasticsearch
@@ -22,6 +24,8 @@ services:
      - "discovery.zen.ping.unicast.hosts=['es_node_1']"
     volumes:
      - ./volume/es_node_2:/usr/share/elasticsearch/data
+    networks:
+     - es_network 
 
 volumes:
 
@@ -30,3 +34,7 @@ volumes:
 
   es_node_2:
     driver: local
+
+networks:
+
+  es_network:
