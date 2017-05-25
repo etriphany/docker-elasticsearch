@@ -1,0 +1,32 @@
+version: '3'
+
+services:  
+
+  es_node_1:
+    image: etriphany:elasticsearch
+    container_name: es_node_1
+    ports:
+      - 9200:9200
+    environment:
+     - cluster.name=elasticsearch_dev
+     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+     - ./volume/es_node_1:/usr/share/elasticsearch/data
+
+  es_node_2:
+    image: etriphany:elasticsearch
+    container_name: es_node_2
+    environment:
+     - cluster.name=elasticsearch_dev
+     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+     - "discovery.zen.ping.unicast.hosts=['es_node_1']"
+    volumes:
+     - ./volume/es_node_2:/usr/share/elasticsearch/data
+
+volumes:
+
+  es_node_1:
+    driver: local
+
+  es_node_2:
+    driver: local
