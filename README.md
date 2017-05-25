@@ -15,3 +15,31 @@ This image is based on image [java:openjdk-8-jre-alpine](https://github.com/dock
 ----------------------------------------------------------------------------|-------------------------------------
 Based on **CentOS 7**                                                       | Based on **Alpine 3.5**
 Image size around **510 MB**                                                | Image size around **150 MB**
+
+
+## Usage Examples
+
+Building the image
+
+```
+$ git clone https://github.com/etriphany/docker-elasticsearch.git
+$ docker build . -t etriphany:elasticsearch
+```
+
+Running a container
+
+```
+$ docker run -p 9200:9200 etriphany:elasticsearch
+```
+
+Running a container defining Elasticsearh settings from command line
+
+```
+$ docker run -p 9200:9200 -e "http.host=0.0.0.0" -e "cluster.name=my_cluster" etriphany:elasticsearch
+```
+
+Running a test cluster using docker compose
+
+```
+$ docker-compose up
+```
