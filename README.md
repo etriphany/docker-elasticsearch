@@ -19,26 +19,26 @@ Image size around **510 MB**                                                | Im
 
 ## Usage Examples
 
-Building the image
+Building the image:
 
 ```
 $ git clone https://github.com/etriphany/docker-elasticsearch.git
 $ docker build . -t etriphany:elasticsearch
 ```
 
-Running a container
+Running a container:
 
 ```
 $ docker run -p 9200:9200 etriphany:elasticsearch
 ```
 
-Running a container defining Elasticsearh settings from command line
+Running a container defining Elasticsearch settings from command line:
 
 ```
 $ docker run -p 9200:9200 -e "http.host=0.0.0.0" -e "cluster.name=my_cluster" etriphany:elasticsearch
 ```
 
-Running a test cluster using docker compose
+Running a test cluster using docker compose:
 
 ```
 $ docker-compose up
