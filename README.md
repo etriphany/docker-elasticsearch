@@ -23,6 +23,7 @@ Building the image:
 
 ```
 $ git clone https://github.com/etriphany/docker-elasticsearch.git
+$ cd docker-elasticsearch
 $ docker build . -t etriphany:elasticsearch
 ```
 
