@@ -2,7 +2,7 @@
 
 Docker image packaging for [Elasticsearch](https://www.elastic.co/products/elasticsearch) based on slim **Alpine Linux**.
 
-This image is based on image [java:openjdk-8-jre-alpine](https://github.com/docker-library/openjdk/blob/master/8-jre/alpine/Dockerfile).
+This image is based on :whale: image [java:openjdk-8-jre-alpine](https://github.com/docker-library/openjdk/blob/master/8-jre/alpine/Dockerfile).
 
 ## Main Components
 
