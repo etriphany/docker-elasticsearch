@@ -28,8 +28,7 @@ COPY        config ./config
 
 COPY        bin ./bin
 
-RUN         mkdir data && \
-            chown -R elasticsearch:elasticsearch config/ bin/ data/
+RUN         chown -R elasticsearch:elasticsearch config/ bin/
 
 EXPOSE      9200 9300
 
