@@ -28,10 +28,10 @@ COPY        config ./config
 
 COPY        bin ./bin
 
-RUN         chown -R elasticsearch:elasticsearch config/ bin/
+RUN         mkdir data && \
+            chown -R elasticsearch:elasticsearch config/ bin/ data/
 
 EXPOSE      9200 9300
-
 
 # Run
 USER        elasticsearch

@@ -42,5 +42,5 @@ $ docker run -d -p 9200:9200 -e "http.host=0.0.0.0" -e "cluster.name=my_cluster"
 Running a test cluster using docker compose:
 
 ```
-$ docker-compose up
+$ docker-compose up -d
 ```
