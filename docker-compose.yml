@@ -12,7 +12,7 @@ services:
     volumes:
       - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
     links:
-      - elasticsearch:es_node_1
+      - es_node_1:elasticsearch
     networks:
       - es_network
 
