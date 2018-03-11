@@ -1,39 +1,62 @@
 version: '3'
 
-services:  
+
+services:
+
+  kibana:
+    image: etriphany:kibana-6
+    build: ./kibana
+    container_name: kibana
+    ports:
+      - 5601:5601
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    links:
+      - elasticsearch:es_node_1
+    networks:
+      - es_network
 
   es_node_1:
-    image: etriphany:elasticsearch
+    image: etriphany:elasticsearch-6
+    build: ./es
     container_name: es_node_1
     ports:
       - 9200:9200
     environment:
-     - cluster.name=elasticsearch_dev
-     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - cluster.name=elasticsearch_dev
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     volumes:
-     - es_node_1:/usr/share/elasticsearch/data
+      - ./es/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - es_node_1:/usr/share/elasticsearch/data
     networks:
-     - es_network 
+      - es_network
 
   es_node_2:
     image: etriphany:elasticsearch
+    build: ./es
     container_name: es_node_2
     environment:
      - cluster.name=elasticsearch_dev
      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
      - "discovery.zen.ping.unicast.hosts=['es_node_1']"
     volumes:
-     - es_node_2:/usr/share/elasticsearch/data
+      - ./es/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - es_node_2:/usr/share/elasticsearch/data
     networks:
-     - es_network 
+      - es_network
+
 
 volumes:
+
+  kibana:
+    driver: local
 
   es_node_1:
     driver: local
 
   es_node_2:
     driver: local
+
 
 networks:
 
