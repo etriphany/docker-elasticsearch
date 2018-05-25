@@ -1,8 +1,5 @@
 version: '3'
-
-
 services:
-
   kibana:
     image: etriphany:kibana-6
     build: ./kibana
@@ -32,7 +29,7 @@ services:
       - es_network
 
   es_node_2:
-    image: etriphany:elasticsearch
+    image: etriphany:elasticsearch-6
     build: ./es
     container_name: es_node_2
     environment:
@@ -45,19 +42,13 @@ services:
     networks:
       - es_network
 
-
 volumes:
-
   kibana:
     driver: local
-
   es_node_1:
     driver: local
-
   es_node_2:
     driver: local
 
-
 networks:
-
   es_network:
