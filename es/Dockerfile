@@ -24,9 +24,14 @@ RUN         curl -Lo elasticsearch-${ES_VERSION}.tar.gz https://artifacts.elasti
 
 # Configure
 COPY        bin ./bin
-RUN         chown -R elasticsearch:elasticsearch bin/
+RUN         chown -R elasticsearch:elasticsearch bin/ && \
+            # Here we create "data" directory to set onwer as "elasticsearch" to avoid
+            # docker-compose from doing it as "root" when data-volume takes place
+            mkdir /usr/share/elasticsearch/data && \
+            chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data/
+
 EXPOSE      9200 9300
 
 # Run
 USER        elasticsearch
-CMD         ["/bin/bash", "bin/docker-elasticsearch"]
+CMD         ["/bin/bash", "bin/docker-elasticsearch.sh"]
