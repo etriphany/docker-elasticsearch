@@ -3,10 +3,10 @@ FROM        java:openjdk-8-jre-alpine
 LABEL       maintainer "etriphany.com"
 
 ENV         OS_PACKAGES     "curl bash"
-ENV         ES_VERSION      5.4.0
+ENV         ES_VERSION      6.1.3
 ENV         ES_HOME         /usr/share/elasticsearch
 
-# OS depencencies
+# Dependencies
 RUN         apk add ${OS_PACKAGES} --update --no-cache && \
             rm -rf /var/cache/apk
 
@@ -15,8 +15,7 @@ RUN         addgroup -S -g 1000 elasticsearch && \
             adduser -S -u 1000 -G elasticsearch -h ${ES_HOME} elasticsearch
 
 # Download & install
-WORKDIR     /usr/share/elasticsearch/
-
+WORKDIR     ${ES_HOME}
 RUN         curl -Lo elasticsearch-${ES_VERSION}.tar.gz https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}.tar.gz && \
             tar -xf elasticsearch-${ES_VERSION}.tar.gz && \
             chown -R elasticsearch:elasticsearch elasticsearch-${ES_VERSION} && \
@@ -24,15 +23,15 @@ RUN         curl -Lo elasticsearch-${ES_VERSION}.tar.gz https://artifacts.elasti
             rm -rf elasticsearch-${ES_VERSION}*
 
 # Configure
-COPY        config ./config
-
 COPY        bin ./bin
-
-RUN         chown -R elasticsearch:elasticsearch config/ bin/
+RUN         chown -R elasticsearch:elasticsearch bin/ && \
+            # Here we create "data" directory to set onwer as "elasticsearch" to avoid
+            # docker-compose from doing it as "root" when data-volume takes place
+            mkdir /usr/share/elasticsearch/data && \
+            chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data/
 
 EXPOSE      9200 9300
 
 # Run
 USER        elasticsearch
-
-CMD         ["/bin/bash", "bin/docker-elasticsearch"]
+CMD         ["/bin/bash", "bin/docker-elasticsearch.sh"]
