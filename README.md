@@ -33,13 +33,13 @@ $ docker-compose build
 Running a container:
 
 ```
-$ docker run -d -p 9200:9200 etriphany:elasticsearch-6
+$ docker run -d -p 9200:9200 etriphany/elasticsearch-6
 ```
 
 Running a container defining Elasticsearch settings from command line:
 
 ```
-$ docker run -d -p 9200:9200 -e "http.host=0.0.0.0" -e "cluster.name=my_cluster" etriphany:elasticsearch-6
+$ docker run -d -p 9200:9200 -e "http.host=0.0.0.0" -e "cluster.name=my_cluster" etriphany/elasticsearch-6
 ```
 
 Running full test cluster, including a Kibana node, using Docker Compose:
