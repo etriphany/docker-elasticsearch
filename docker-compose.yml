@@ -1,7 +1,7 @@
 version: '3'
 services:
   kibana:
-    image: etriphany:kibana-6
+    image: etriphany/kibana-6
     build: ./kibana
     container_name: kibana
     ports:
@@ -14,7 +14,7 @@ services:
       - es_network
 
   es_node_1:
-    image: etriphany:elasticsearch-6
+    image: etriphany/elasticsearch-6
     build: ./es
     container_name: es_node_1
     ports:
@@ -29,7 +29,7 @@ services:
       - es_network
 
   es_node_2:
-    image: etriphany:elasticsearch-6
+    image: etriphany/elasticsearch-6
     build: ./es
     container_name: es_node_2
     environment:
